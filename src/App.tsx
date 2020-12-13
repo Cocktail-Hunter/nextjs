@@ -6,6 +6,9 @@ import {
   Route
 } from "react-router-dom";
 
+import UnAuthorized from "./Routes/UnAuthorized";
+import Private from "./Routes/Private";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -23,27 +26,27 @@ function App() {
           <Route path="/" exact>
             <Home/>
           </Route>
-          <Route path="/login">
+          <UnAuthorized path="/login">
             <Login/>
-          </Route>
-          <Route path="/register">
+          </UnAuthorized>
+          <UnAuthorized path="/register">
             <Register/>
-          </Route>
+          </UnAuthorized>
           <Route path="/tos">
             <TOS/>
           </Route>
           <Route path="/policy">
             <PrivacyPolicy/>
           </Route>
-          <Route path="/inventory">
+          <Private path="/inventory">
             <Inventory/>
-          </Route>
-          <Route path="/profile">
+          </Private>
+          <Private path="/profile">
             <Profile/>
-          </Route>
-          <Route path="/forgot-password">
+          </Private>
+          <UnAuthorized path="/forgot-password">
             <ForgotPassword/>
-          </Route>
+          </UnAuthorized>
         </Switch>
       </Router>
     </div>
