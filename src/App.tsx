@@ -9,14 +9,14 @@ import {
 import UnAuthorized from "./Routes/UnAuthorized";
 import Private from "./Routes/Private";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import TOS from "./pages/TOS";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Inventory from "./pages/Inventory";
-import Profile from "./pages/Profile";
-import ForgotPassword from "./pages/ForgotPassword";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import TOS from "./Pages/TOS";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
+import Inventory from "./Pages/Inventory";
+import Profile from "./Pages/Profile";
+import ForgotPassword from "./Pages/ForgotPassword";
 
 function App() {
   return (
