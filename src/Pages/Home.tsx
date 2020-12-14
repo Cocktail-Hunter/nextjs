@@ -1,20 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 function Home() {
+  const authed = useAuth();
+
   return (
     <div className="page home">
       <h1>Cocktail Hunter</h1>
       <p>Find cocktails you can make based on your inventory.</p>
       <nav>
-        <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-        </ul>
+        {authed && (
+          <ul>
+            <li>
+              <Link to="/inventory">Inventory</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          </ul>
+        )}
+        {!authed && (
+          <ul>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+          </ul>
+        )}
       </nav>
       <section>
         <h2>Context</h2>

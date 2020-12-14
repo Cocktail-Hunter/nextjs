@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 interface Props {
   path: String
@@ -7,14 +8,13 @@ interface Props {
 
 const Private: FC<Props> = ({children, path}) => {
   const history = useHistory();
+  const authed = useAuth();
 
   useEffect(() => {
-    const token = document.cookie.split("=")[1];
-
-    if (!token) {
+    if (authed === false) {
       history.push("/");
     }
-  }, [history]);
+  }, [authed, history]);
 
   return (
     <Route {...path}>
