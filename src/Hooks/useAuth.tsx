@@ -4,10 +4,13 @@ function useAuth() {
   const [authed, setAuthed] = useState<boolean>();
 
   useEffect(() => {
-    const [accessToken, refreshToken] = document.cookie.split(";");
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("accessToken");
 
     if (accessToken && refreshToken) {
       setAuthed(true);
+    } else {
+      setAuthed(false);
     }
   }, []);
 
