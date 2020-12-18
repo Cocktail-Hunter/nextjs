@@ -17,40 +17,42 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Inventory from "./Pages/Inventory";
 import Profile from "./Pages/Profile";
 import ForgotPassword from "./Pages/ForgotPassword";
+import Refresh from "./Pages/Refresh";
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <Home/>
-          </Route>
-          <UnAuthorized path="/login">
-            <Login/>
-          </UnAuthorized>
-          <UnAuthorized path="/register">
-            <Register/>
-          </UnAuthorized>
-          <Route path="/tos">
-            <TOS/>
-          </Route>
-          <Route path="/policy">
-            <PrivacyPolicy/>
-          </Route>
-          <Private path="/inventory">
-            <Inventory/>
-          </Private>
-          <Private path="/profile">
-            <Profile/>
-          </Private>
-          <UnAuthorized path="/forgot-password">
-            <ForgotPassword/>
-          </UnAuthorized>
-        </Switch>
-      </Router>
-    </div>
-  );
-}
+const App = () => (
+  <Router>
+    <Switch>
+      <div className="App">
+        <Route path="/" exact>
+          <Home/>
+        </Route>
+        <UnAuthorized path="/login">
+          <Login/>
+        </UnAuthorized>
+        <UnAuthorized path="/register">
+          <Register/>
+        </UnAuthorized>
+        <Route path="/tos">
+          <TOS/>
+        </Route>
+        <Route path="/policy">
+          <PrivacyPolicy/>
+        </Route>
+        <Route path="/refresh">
+          <Refresh/>
+        </Route>
+        <Private path="/inventory">
+          <Inventory/>
+        </Private>
+        <Private path="/profile">
+          <Profile/>
+        </Private>
+        <UnAuthorized path="/forgot-password">
+          <ForgotPassword/>
+        </UnAuthorized>
+      </div>
+    </Switch>
+  </Router>
+);
 
 export default App;
