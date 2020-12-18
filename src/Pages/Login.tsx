@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { LoginPayload } from "../interfaces";
 
 function Login() {
   const history = useHistory();
@@ -39,7 +40,7 @@ function Login() {
         }
 
         const req = await fetch("/v1/auth/login/", body);
-        const payload = await req.json();
+        const payload = await req.json() as LoginPayload;
 
         if (req.status === 401) {
           setWarn("Incorrect credentials");
@@ -47,9 +48,10 @@ function Login() {
         }
 
         if (req.status === 200) {
-          document.cookie = `accessToken=${payload.access}`;
-          document.cookie = `refreshToken=${payload.refresh}`;
+          localStorage.setItem("accessToken", payload.access);
+          localStorage.setItem("refreshToken", payload.refresh);
           history.push("/");
+
           return;
         }
 

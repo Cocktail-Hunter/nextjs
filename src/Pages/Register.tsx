@@ -71,9 +71,10 @@ function Register() {
         }
 
         if (req.status === 201) {
-          document.cookie = `accessToken=${payload.tokens.access}`;
-          document.cookie = `refreshToken=${payload.tokens.refresh}`;
+          localStorage.setItem("accessToken", payload.tokens.access);
+          localStorage.setItem("refreshToken", payload.tokens.refresh);
           history.push("/");
+
           return;
         }
 
