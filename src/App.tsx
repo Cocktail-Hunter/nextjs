@@ -20,9 +20,9 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import Refresh from "./Pages/Refresh";
 
 const App = () => (
-  <Router>
-    <Switch>
-      <div className="App">
+  <div className="App">
+    <Router>
+      <Switch>
         <Route path="/" exact>
           <Home/>
         </Route>
@@ -50,9 +50,9 @@ const App = () => (
         <UnAuthorized path="/forgot-password">
           <ForgotPassword/>
         </UnAuthorized>
-      </div>
-    </Switch>
-  </Router>
+      </Switch>
+    </Router>
+  </div>
 );
 
 export default App;
