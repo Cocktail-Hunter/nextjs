@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Ingredient, InventoryPayload } from "../interfaces";
+import { Ingredient, InventoryPayload } from "../../interfaces";
+import CreateIngredient from "./CreateIngredient";
+import Ingredients from "./Ingredients";
 
 function Inventory() {
   const history = useHistory();
 
-  const [ingredients, setIngredients] = useState<Array<Ingredient>>([]);
+  const [inventory, setInventory] = useState<Array<Ingredient>>([]);
   const [warnIngredients, setWarnIngredients] = useState("");
 
   useEffect(() => {
@@ -31,7 +33,7 @@ function Inventory() {
 
         if (req.status === 200) {
           const payload = await req.json() as InventoryPayload;
-          setIngredients(payload.inventory);
+          setInventory(payload.inventory);
           return;
         }
 
@@ -59,15 +61,21 @@ function Inventory() {
         </ul>
       </nav>
       <section>
-        <h3>Inventory</h3>
+        <h3>Inventory ({inventory.length})</h3>
+        <Ingredients/>
+        <h4>What you have currently:</h4>
         {warnIngredients && <p>{warnIngredients}</p>}
-        {ingredients.length === 0 && <p>Your inventory is currently empty, time to stock up!</p>}
-        {ingredients.map(ingredient => (
+        {inventory.length === 0 && <p>Your inventory is empty, time to stock up!</p>}
+        {inventory.map(ingredient => (
           <p>{ingredient.name}</p>
         ))}
       </section>
       <section>
         <h3>Cocktails you can make</h3>
+      </section>
+      <section>
+        <h3>Create Ingredient</h3>
+        <CreateIngredient/>
       </section>
     </div>
   );
