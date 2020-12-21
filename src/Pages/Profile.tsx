@@ -1,7 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 function Profile() {
+  const history = useHistory();
+
+  const logout = useCallback(() => {
+    localStorage.clear();
+    history.push("/");
+  }, [history]);
+
   return (
     <div className="page profile">
       <h1>Cocktail Hunter</h1>
@@ -26,6 +33,7 @@ function Profile() {
         <button>Delete account</button>
         <button>Verify email</button>
         <button>Download my data</button>
+        <button onClick={logout}>Logout</button>
       </section>
       <footer>
         <hr/>
