@@ -19,7 +19,7 @@ function CreateIngredient() {
 
     (async () => {
       const body: RequestInit = {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
           "Content-Type": "application/json"
