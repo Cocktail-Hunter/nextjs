@@ -12,7 +12,7 @@ function CreateIngredient() {
   const create = useCallback(() => {
     const accessToken = localStorage.getItem("accessToken");
 
-    if (name.length <= 3) {
+    if (name.length <= 2) {
       setWarn("Name too short.");
       return;
     }
