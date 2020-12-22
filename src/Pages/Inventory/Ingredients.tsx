@@ -1,17 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Ingredient, Sector } from "../../interfaces";
 
-function Ingredients() {
+interface Props {
+  list: Ingredient[],
+  setList: React.Dispatch<React.SetStateAction<Ingredient[]>>
+};
+
+const Ingredients: FC<Props> = ({list, setList}) => {
   const history = useHistory();
 
   const [ sector, setSector ] = useState<Sector>(Sector.PUBLIC);
 
-  const [ ingredientsList, setIngredientsList ] = useState<Array<Ingredient>>([]);
   const [ warn, setWarn ] = useState("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+
+    console.group("SECTOR", sector);
 
     (async () => {
       const body: RequestInit = {
@@ -33,7 +39,8 @@ function Ingredients() {
 
         if (req.status === 200) {
           const payload = await req.json() as Array<Ingredient>;
-          setIngredientsList(payload);
+          setList(payload);
+          console.log("RETURNED INGREDIENTS >", payload)
           return;
         }
 
@@ -43,7 +50,8 @@ function Ingredients() {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     })();
-  }, [history, sector]);
+    console.groupEnd();
+  }, [history, sector, setList]);
 
   const handleSector = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSector(e.target.id as Sector);
@@ -63,7 +71,7 @@ function Ingredients() {
       </div>
       <select>
         <option>Select ingredient</option>
-        {ingredientsList.map((ingredient, i) => (
+        {list.map((ingredient, i) => (
           <option key={i} value={ingredient.id}>{ingredient.name}</option>
         ))}
       </select>

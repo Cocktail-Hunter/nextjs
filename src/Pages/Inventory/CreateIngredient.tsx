@@ -1,8 +1,12 @@
-import { useCallback, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Ingredient } from "../../interfaces";
 
-function CreateIngredient() {
+interface Props {
+  setList: React.Dispatch<React.SetStateAction<Ingredient[]>>
+};
+
+const CreateIngredient: FC<Props> = ({setList}) => {
   const history = useHistory();
 
   const [ name, setName ] = useState("");
@@ -42,8 +46,15 @@ function CreateIngredient() {
         }
 
         if (req.status === 200) {
-          const payload = await req.json() as Array<Ingredient>;
-          console.log("PAYLOAD", payload)
+          const payload = await req.json() as Ingredient;
+
+          setList(state => ([
+            ...state,
+            payload
+          ]));
+
+          setName("");
+
           return;
         }
 
@@ -53,7 +64,7 @@ function CreateIngredient() {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     })();
-  }, [history, isPublic, name]);
+  }, [history, isPublic, name, setList]);
 
   return (
     <div className="createIngredient">

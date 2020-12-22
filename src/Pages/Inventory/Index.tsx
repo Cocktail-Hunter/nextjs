@@ -7,6 +7,7 @@ import Ingredients from "./Ingredients";
 function Inventory() {
   const history = useHistory();
 
+  const [ ingredientsList, setIngredientsList ] = useState<Array<Ingredient>>([]);
   const [inventory, setInventory] = useState<Array<Ingredient>>([]);
   const [warnIngredients, setWarnIngredients] = useState("");
 
@@ -24,9 +25,7 @@ function Inventory() {
         const req = await fetch("/v1/user/inventory", body);
 
         if (req.status === 401) {
-          const { pathname, search } = history.location;
-          const redirect = encodeURIComponent(pathname + search);
-
+          const redirect = encodeURIComponent("/inventory");
           history.push(`/refresh?redirect=${redirect}`);
           return;
         }
@@ -62,7 +61,7 @@ function Inventory() {
       </nav>
       <section>
         <h3>Inventory ({inventory.length})</h3>
-        <Ingredients/>
+        <Ingredients list={ingredientsList} setList={setIngredientsList}/>
         <h4>What you have currently:</h4>
         {warnIngredients && <p>{warnIngredients}</p>}
         {inventory.length === 0 && <p>Your inventory is empty, time to stock up!</p>}
@@ -75,7 +74,7 @@ function Inventory() {
       </section>
       <section>
         <h3>Create Ingredient</h3>
-        <CreateIngredient/>
+        <CreateIngredient setList={setIngredientsList}/>
       </section>
     </div>
   );
