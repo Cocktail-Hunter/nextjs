@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Ingredient, InventoryPayload } from "../../interfaces";
+import { IIngredient, IInventoryPayload } from "../../interfaces";
 import CreateIngredient from "./CreateIngredient";
+import Ingredient from "./Ingredient";
 import Ingredients from "./Ingredients";
 
 function Inventory() {
   const history = useHistory();
 
-  const [ ingredientsList, setIngredientsList ] = useState<Array<Ingredient>>([]);
-  const [inventory, setInventory] = useState<Array<Ingredient>>([]);
+  const [ingredientsList, setIngredientsList] = useState<Array<IIngredient>>([]);
+  const [inventory, setInventory] = useState<Array<IIngredient>>([]);
   const [warnIngredients, setWarnIngredients] = useState("");
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function Inventory() {
         }
 
         if (req.status === 200) {
-          const payload = await req.json() as InventoryPayload;
+          const payload = await req.json() as IInventoryPayload;
           setInventory(payload.inventory);
           return;
         }
@@ -61,12 +62,23 @@ function Inventory() {
       </nav>
       <section>
         <h3>Inventory ({inventory.length})</h3>
-        <Ingredients list={ingredientsList} setList={setIngredientsList}/>
+        <Ingredients
+          ingredientsList={ingredientsList}
+          setIngredientsList={setIngredientsList}
+          inventory={inventory}
+          setInventory={setInventory}
+        />
         <h4>What you have currently:</h4>
         {warnIngredients && <p>{warnIngredients}</p>}
         {inventory.length === 0 && <p>Your inventory is empty, time to stock up!</p>}
         {inventory.map(ingredient => (
-          <p>{ingredient.name}</p>
+          <Ingredient
+            data={ingredient}
+            ingredientsList={ingredientsList}
+            setIngredientsList={setIngredientsList}
+            inventory={inventory}
+            setInventory={setInventory}
+          />
         ))}
       </section>
       <section>
