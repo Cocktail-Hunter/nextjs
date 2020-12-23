@@ -1,9 +1,9 @@
 import { FC, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Ingredient } from "../../interfaces";
+import { IIngredient } from "../../interfaces";
 
 interface Props {
-  setList: React.Dispatch<React.SetStateAction<Ingredient[]>>
+  setList: React.Dispatch<React.SetStateAction<IIngredient[]>>
 };
 
 const CreateIngredient: FC<Props> = ({setList}) => {
@@ -46,7 +46,7 @@ const CreateIngredient: FC<Props> = ({setList}) => {
         }
 
         if (req.status === 200) {
-          const payload = await req.json() as Ingredient;
+          const payload = await req.json() as IIngredient;
 
           setList(state => ([
             ...state,
