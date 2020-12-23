@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { RefreshPayload } from "../interfaces";
+import { IRefreshPayload } from "../interfaces";
 
 function Refresh() {
   const history = useHistory();
@@ -51,7 +51,7 @@ function Refresh() {
         }
 
         if (req.status === 200) {
-          const payload = await req.json() as RefreshPayload;
+          const payload = await req.json() as IRefreshPayload;
 
           localStorage.setItem("accessToken", payload.access);
           history.push(redirect);

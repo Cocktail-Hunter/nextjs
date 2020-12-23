@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { LoginPayload } from "../interfaces";
+import { ILoginPayload } from "../interfaces";
 
 function Login() {
   const history = useHistory();
@@ -40,7 +40,7 @@ function Login() {
         }
 
         const req = await fetch("/v1/auth/login/", body);
-        const payload = await req.json() as LoginPayload;
+        const payload = await req.json() as ILoginPayload;
 
         if (req.status === 401) {
           setWarn("Incorrect credentials");

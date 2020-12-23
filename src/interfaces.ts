@@ -1,34 +1,34 @@
-export interface LoginPayload {
+export interface ILoginPayload {
   refresh: string,
   access: string,
 };
 
-export interface RefreshPayload {
+export interface IRefreshPayload {
   access: string,
 };
 
-export enum State {
+export enum EState {
   PENDING = 0,
   APPROVED = 1,
   DENIED = 2
 };
 
-export enum Sector {
+export enum ESector {
   PUBLIC = "true",
   PRIVATE = "false"
 };
 
-export interface Ingredient {
+export interface IIngredient {
   id: number,
   name: string,
-  state: State,
-  public: Sector,
+  state: EState,
+  public: ESector,
   addedBy: {
     id: string,
     username: string
   }
 };
 
-export interface InventoryPayload {
-  inventory: Array<Ingredient>,
+export interface IInventoryPayload {
+  inventory: Array<IIngredient>,
 };
