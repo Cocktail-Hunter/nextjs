@@ -32,8 +32,6 @@ const Ingredient: FC<Props> = (
     try {
       const req = await fetch(`/v1/user/inventory/`, body);
 
-      console.log(req.status)
-
       if (req.status === 401) {
         const redirect = encodeURIComponent("/inventory");
         history.push(`/refresh?redirect=${redirect}`);
