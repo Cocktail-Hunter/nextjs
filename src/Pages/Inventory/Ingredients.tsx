@@ -4,17 +4,20 @@ import { IIngredient, ESector } from "../../interfaces";
 import AddIngredient from "./AddIngredient";
 
 interface Props {
+  sector: ESector,
+  setSector: React.Dispatch<React.SetStateAction<ESector>>,
   ingredientsList: IIngredient[],
   setIngredientsList: React.Dispatch<React.SetStateAction<IIngredient[]>>,
   inventory: IIngredient[],
   setInventory: React.Dispatch<React.SetStateAction<IIngredient[]>>
 };
 
-const Ingredients: FC<Props> = ({ingredientsList, setIngredientsList, inventory, setInventory}) => {
+const Ingredients: FC<Props> = (
+  {sector, setSector, ingredientsList, setIngredientsList, inventory, setInventory}
+) => {
   const dropdown = useRef<HTMLSelectElement | null>(null);
   const history = useHistory();
 
-  const [ sector, setSector ] = useState<ESector>(ESector.PUBLIC);
   const [ warn, setWarn ] = useState("");
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const Ingredients: FC<Props> = ({ingredientsList, setIngredientsList, inventory,
 
   const handleSector = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSector(e.target.id as ESector);
-  }, []);
+  }, [setSector]);
 
   return (
     <div className="ingredients">

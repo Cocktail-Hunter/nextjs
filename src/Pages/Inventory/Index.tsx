@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { IIngredient, IInventoryPayload } from "../../interfaces";
+import { ESector, IIngredient, IInventoryPayload } from "../../interfaces";
 import CreateIngredient from "./CreateIngredient";
 import Ingredient from "./Ingredient";
 import Ingredients from "./Ingredients";
@@ -8,6 +8,7 @@ import Ingredients from "./Ingredients";
 function Inventory() {
   const history = useHistory();
 
+  const [ sector, setSector ] = useState<ESector>(ESector.PUBLIC);
   const [ingredientsList, setIngredientsList] = useState<Array<IIngredient>>([]);
   const [inventory, setInventory] = useState<Array<IIngredient>>([]);
   const [warnIngredients, setWarnIngredients] = useState("");
@@ -63,6 +64,8 @@ function Inventory() {
       <section>
         <h3>Inventory ({inventory.length})</h3>
         <Ingredients
+          sector={sector}
+          setSector={setSector}
           ingredientsList={ingredientsList}
           setIngredientsList={setIngredientsList}
           inventory={inventory}
@@ -86,7 +89,10 @@ function Inventory() {
       </section>
       <section>
         <h3>Create Ingredient</h3>
-        <CreateIngredient setList={setIngredientsList}/>
+        <CreateIngredient
+          sector={sector}
+          setIngredientsList={setIngredientsList}
+        />
       </section>
     </div>
   );
