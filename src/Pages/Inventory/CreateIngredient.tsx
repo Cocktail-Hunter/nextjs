@@ -1,12 +1,13 @@
 import { FC, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IIngredient } from "../../interfaces";
+import { ESector, IIngredient } from "../../interfaces";
 
 interface Props {
-  setList: React.Dispatch<React.SetStateAction<IIngredient[]>>
+  sector: ESector,
+  setIngredientsList: React.Dispatch<React.SetStateAction<IIngredient[]>>
 };
 
-const CreateIngredient: FC<Props> = ({setList}) => {
+const CreateIngredient: FC<Props> = ({sector, setIngredientsList}) => {
   const history = useHistory();
 
   const [ name, setName ] = useState("");
@@ -45,13 +46,20 @@ const CreateIngredient: FC<Props> = ({setList}) => {
           return;
         }
 
-        if (req.status === 200) {
+        if (req.status === 201) {
           const payload = await req.json() as IIngredient;
+          const sectorIsTrue = sector === "true";
 
-          setList(state => ([
-            ...state,
-            payload
-          ]));
+          /*
+            Add new ingredient to list if added
+            to the same sector
+          */
+          if (isPublic === sectorIsTrue) {
+            setIngredientsList(state => ([
+              ...state,
+              payload
+            ]));
+          }
 
           setName("");
 
@@ -64,7 +72,7 @@ const CreateIngredient: FC<Props> = ({setList}) => {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     })();
-  }, [history, isPublic, name, setList]);
+  }, [history, isPublic, name, sector, setIngredientsList]);
 
   return (
     <div className="createIngredient">
