@@ -1,23 +1,24 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Ingredient, Sector } from "../../interfaces";
+import { IIngredient, ESector } from "../../interfaces";
+import AddIngredient from "./AddIngredient";
 
 interface Props {
-  list: Ingredient[],
-  setList: React.Dispatch<React.SetStateAction<Ingredient[]>>
+  ingredientsList: IIngredient[],
+  setIngredientsList: React.Dispatch<React.SetStateAction<IIngredient[]>>,
+  inventory: IIngredient[],
+  setInventory: React.Dispatch<React.SetStateAction<IIngredient[]>>
 };
 
-const Ingredients: FC<Props> = ({list, setList}) => {
+const Ingredients: FC<Props> = ({ingredientsList, setIngredientsList, inventory, setInventory}) => {
+  const dropdown = useRef<HTMLSelectElement | null>(null);
   const history = useHistory();
 
-  const [ sector, setSector ] = useState<Sector>(Sector.PUBLIC);
-
+  const [ sector, setSector ] = useState<ESector>(ESector.PUBLIC);
   const [ warn, setWarn ] = useState("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-
-    console.group("SECTOR", sector);
 
     (async () => {
       const body: RequestInit = {
@@ -27,7 +28,7 @@ const Ingredients: FC<Props> = ({list, setList}) => {
       };
 
       try {
-        const req = await fetch(`/v1/ingredients?state=approved&sector=${sector}`, body);
+        const req = await fetch(`/v1/ingredients?state=approved&public=${sector}`, body);
 
         if (req.status === 401) {
           const { pathname, search } = history.location;
@@ -38,9 +39,15 @@ const Ingredients: FC<Props> = ({list, setList}) => {
         }
 
         if (req.status === 200) {
-          const payload = await req.json() as Array<Ingredient>;
-          setList(payload);
-          console.log("RETURNED INGREDIENTS >", payload)
+          const payload = await req.json() as Array<IIngredient>;
+          const inventoryIDS = inventory.map(({id}) => id);
+
+          // hide ingredients already in inventory.
+          const filtered = payload.filter(ingredient => (
+            !inventoryIDS.includes(ingredient.id)
+          ));
+
+          setIngredientsList(filtered);
           return;
         }
 
@@ -50,11 +57,10 @@ const Ingredients: FC<Props> = ({list, setList}) => {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     })();
-    console.groupEnd();
-  }, [history, sector, setList]);
+  }, [history, inventory, sector, setIngredientsList]);
 
   const handleSector = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSector(e.target.id as Sector);
+    setSector(e.target.id as ESector);
   }, []);
 
   return (
@@ -62,20 +68,21 @@ const Ingredients: FC<Props> = ({list, setList}) => {
       <h4>Add ingredient to inventory</h4>
       {warn && <p>{warn}</p>}
       <div>
-        <input type="radio" id={Sector.PUBLIC} onChange={handleSector} checked={sector === Sector.PUBLIC}/>
-        <label htmlFor={Sector.PUBLIC}>Show public ingredients</label>
+        <input type="radio" id={ESector.PUBLIC} onChange={handleSector} checked={sector === ESector.PUBLIC}/>
+        <label htmlFor={ESector.PUBLIC}>Show public ingredients</label>
       </div>
       <div>
-        <input type="radio" id={Sector.PRIVATE} onChange={handleSector} checked={sector === Sector.PRIVATE}/>
-        <label htmlFor={Sector.PRIVATE}>Show private ingredients</label>
+        <input type="radio" id={ESector.PRIVATE} onChange={handleSector} checked={sector === ESector.PRIVATE}/>
+        <label htmlFor={ESector.PRIVATE}>Show private ingredients</label>
       </div>
-      <select>
+      <p>Showing {ingredientsList.length} ingredients:</p>
+      <select ref={dropdown}>
         <option>Select ingredient</option>
-        {list.map((ingredient, i) => (
+        {ingredientsList.map((ingredient, i) => (
           <option key={i} value={ingredient.id}>{ingredient.name}</option>
         ))}
       </select>
-      <button>Add to inventory</button>
+      <AddIngredient dropdown={dropdown} setInventory={setInventory}/>
     </div>
   );
 }
