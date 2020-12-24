@@ -42,6 +42,7 @@ const AddIngredient: FC<Props> = ({dropdown, setInventory}) => {
 
         if (req.status === 200) {
           const payload = await req.json() as IInventoryPayload;
+
           setInventory(payload.inventory);
 
           if (dropdown.current) {
