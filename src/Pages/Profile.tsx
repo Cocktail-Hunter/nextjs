@@ -1,13 +1,58 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { IUser } from "../interfaces";
 
 function Profile() {
   const history = useHistory();
+
+  const [user, setUser] = useState<IUser | null>();
+  const [warn, setWarn] = useState("");
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    (async () => {
+      const body: RequestInit = {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      };
+
+      try {
+        const req = await fetch("/v1/user", body);
+
+        if (req.status === 401) {
+          const redirect = encodeURIComponent("/profile");
+          history.push(`/refresh?redirect=${redirect}`);
+          return;
+        }
+
+        if (req.status === 200) {
+          const payload = await req.json() as IUser;
+          setUser(payload);
+          return;
+        }
+
+        const payload = await req.json();
+        setWarn(JSON.stringify(payload));
+      } catch (e) {
+        setWarn(`Internal error: ${JSON.stringify(e)}`);
+      }
+    })();
+  }, [history]);
 
   const logout = useCallback(() => {
     localStorage.clear();
     history.push("/");
   }, [history]);
+
+  let createdAt = "";
+  let lastLogin = "";
+
+  if (user) {
+    createdAt = (new Date(user.createdAt)).toDateString();
+    lastLogin = (new Date(user.lastLogin)).toDateString();
+  }
 
   return (
     <div className="page profile">
@@ -24,9 +69,12 @@ function Profile() {
           </li>
         </ul>
       </nav>
+      {warn && <p>{warn}</p>}
       <section>
-        <p>Username:</p>
-        <p>Email:</p>
+        <p>Username: {user?.username}</p>
+        <p>Email: {user?.email}</p>
+        <p>Created at: {createdAt}</p>
+        <p>Last login: {lastLogin}</p>
       </section>
       <section>
         <button>Change password</button>
