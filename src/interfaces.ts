@@ -7,6 +7,19 @@ export interface IRefreshPayload {
   access: string,
 };
 
+export interface IUser {
+  avatar: string,
+  createdAt: Date,
+  email: string
+  id: number
+  isActive: boolean
+  isAdmin: boolean
+  isVerified: boolean
+  lastLogin: Date
+  slug: string
+  username: string
+};
+
 export enum EState {
   PENDING = 0,
   APPROVED = 1,
