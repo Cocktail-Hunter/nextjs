@@ -51,8 +51,8 @@ const CreateIngredient: FC<Props> = ({sector, setIngredientsList}) => {
           const sectorIsTrue = sector === "true";
 
           /*
-            Add new ingredient to list if added
-            to the same sector
+            Add new ingredient to list
+            if added to the same sector
           */
           if (isPublic === sectorIsTrue) {
             setIngredientsList(state => ([
