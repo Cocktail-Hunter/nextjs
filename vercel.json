@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/v1",
-      "destination": "https://cocktail-hunter.herokuapp.com/"
+      "source": "/v1/:path*",
+      "destination": "https://cocktail-hunter.herokuapp.com/v1/:path*"
     }
   ]
 }
