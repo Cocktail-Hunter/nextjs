@@ -31,7 +31,7 @@ function Inventory() {
 
         if (req.status === 401) {
           const redirect = encodeURIComponent("/inventory");
-          // history.push(`/refresh?redirect=${redirect}`);
+          history.push(`/refresh?redirect=${redirect}`);
           return;
         }
 
