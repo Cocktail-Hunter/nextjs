@@ -62,7 +62,7 @@ function Register() {
           })
         }
 
-        const req = await fetch("/v1/auth/register/", body);
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/auth/register/`, body);
         const payload = await req.json();
 
         if (req.status === 401) {

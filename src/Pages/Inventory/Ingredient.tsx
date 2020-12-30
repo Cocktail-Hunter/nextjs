@@ -30,7 +30,7 @@ const Ingredient: FC<Props> = (
     };
 
     try {
-      const req = await fetch(`/v1/user/inventory/`, body);
+      const req = await fetch(`${process.env.REACT_APP_API}/v1/user/inventory/`, body);
 
       if (req.status === 401) {
         const redirect = encodeURIComponent("/inventory");

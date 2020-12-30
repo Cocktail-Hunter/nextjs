@@ -41,7 +41,7 @@ function Refresh() {
       };
 
       try {
-        const req = await fetch("/v1/auth/refresh/", body);
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/auth/refresh/`, body);
 
         if (req.status === 401) {
           localStorage.clear();

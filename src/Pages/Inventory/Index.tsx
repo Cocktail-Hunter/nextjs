@@ -24,11 +24,14 @@ function Inventory() {
       };
 
       try {
-        const req = await fetch("/v1/user/inventory", body);
+        console.log("REQUESTING")
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/user/inventory/`, body);
+
+        console.log("REQ", req);
 
         if (req.status === 401) {
           const redirect = encodeURIComponent("/inventory");
-          history.push(`/refresh?redirect=${redirect}`);
+          // history.push(`/refresh?redirect=${redirect}`);
           return;
         }
 
@@ -41,6 +44,7 @@ function Inventory() {
         const payload = await req.json();
         setWarnIngredients(JSON.stringify(payload));
       } catch (e) {
+        console.log("E", e);
         setWarnIngredients(`Internal error: ${JSON.stringify(e)}`);
       }
     })();

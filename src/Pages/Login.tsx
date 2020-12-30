@@ -39,7 +39,7 @@ function Login() {
           })
         }
 
-        const req = await fetch("/v1/auth/login/", body);
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/auth/login/`, body);
         const payload = await req.json() as ILoginPayload;
 
         if (req.status === 401) {

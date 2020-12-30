@@ -31,7 +31,7 @@ const Ingredients: FC<Props> = (
       };
 
       try {
-        const req = await fetch(`/v1/ingredients?state=approved&public=${sector}`, body);
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/ingredients/?state=approved&public=${sector}`, body);
 
         if (req.status === 401) {
           const { pathname, search } = history.location;

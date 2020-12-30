@@ -19,7 +19,7 @@ function Profile() {
       };
 
       try {
-        const req = await fetch("/v1/user", body);
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/user/`, body);
 
         if (req.status === 401) {
           const redirect = encodeURIComponent("/profile");
