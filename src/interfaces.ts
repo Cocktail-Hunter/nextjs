@@ -42,6 +42,20 @@ export interface IIngredient {
   }
 };
 
+export interface ICocktail {
+  alcoholic: boolean,
+  author: {
+    id: string,
+    username: string
+  },
+  id: number,
+  ingredients: Array<IIngredient>,
+  name: string,
+  picture: string,
+  public: ESector,
+  state: EState
+};
+
 export interface IInventoryPayload {
   inventory: Array<IIngredient>,
 };
