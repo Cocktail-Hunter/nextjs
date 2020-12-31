@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { ESector, IIngredient, IInventoryPayload } from "../../interfaces";
+import { ESector, ICocktail, IIngredient, IInventoryPayload } from "../../interfaces";
+import Cocktails from "./Cocktails";
 import CreateIngredient from "./CreateIngredient";
 import Ingredient from "./Ingredient";
 import Ingredients from "./Ingredients";
@@ -10,6 +11,7 @@ function Inventory() {
 
   const [ sector, setSector ] = useState<ESector>(ESector.PUBLIC);
   const [ingredientsList, setIngredientsList] = useState<Array<IIngredient>>([]);
+  const [cocktailsList, setCocktailsList] = useState<Array<ICocktail>>([]);
   const [inventory, setInventory] = useState<Array<IIngredient>>([]);
   const [warnIngredients, setWarnIngredients] = useState("");
 
@@ -24,10 +26,7 @@ function Inventory() {
       };
 
       try {
-        console.log("REQUESTING")
         const req = await fetch(`${process.env.REACT_APP_API}/v1/user/inventory/`, body);
-
-        console.log("REQ", req);
 
         if (req.status === 401) {
           const redirect = encodeURIComponent("/inventory");
@@ -90,6 +89,16 @@ function Inventory() {
       </section>
       <section>
         <h3>Cocktails you can make</h3>
+        <Cocktails
+          sector={sector}
+          setSector={setSector}
+          cocktailsList={cocktailsList}
+          setCocktailsList={setCocktailsList}
+          ingredientsList={ingredientsList}
+          setIngredientsList={setIngredientsList}
+          inventory={inventory}
+          setInventory={setInventory}
+        />
       </section>
       <section>
         <h3>Create Ingredient</h3>
