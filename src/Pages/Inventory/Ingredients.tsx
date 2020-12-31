@@ -82,7 +82,7 @@ const Ingredients: FC<Props> = (
       <select ref={dropdown}>
         <option>Select ingredient</option>
         {ingredientsList.map((ingredient, i) => (
-          <option key={i} value={ingredient.id}>{ingredient.name}</option>
+          <option key={i} value={ingredient.id}>{ingredient.id} {ingredient.name}</option>
         ))}
       </select>
       <AddIngredient dropdown={dropdown} setInventory={setInventory}/>
