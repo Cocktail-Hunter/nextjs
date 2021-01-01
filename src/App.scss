@@ -12,3 +12,65 @@
   font-family: "Bree Serif Regular";
   src: url("./assets/fonts/bree_serif_regular.woff2");
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+html, body, #root, .App {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: linear-gradient(135deg, #EB98B2, #BC86E8, #B5D8FF);
+  padding: 5px;
+  font-size: 16px;
+  font-family: "Lato Regular";
+}
+
+.App {
+  position: relative;
+  background: linear-gradient(135deg, #231E46, #120E2F);
+  border-radius: 5px;
+  color: #eee;
+  overflow-y: auto;
+}
+
+.page {
+  grid-area: page;
+  padding: 2em;
+}
+
+a {
+  text-decoration: none;
+  color: #eee;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  color: #eee;
+  font-family: "Lato Regular";
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 800px) {
+  .App {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "nav page";
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 300px 1fr;
+  }
+
+  .page {
+    padding: 2em 6em;
+  }
+}

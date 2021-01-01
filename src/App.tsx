@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   BrowserRouter as Router,
@@ -19,40 +19,50 @@ import Profile from "./Pages/Profile";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Refresh from "./Pages/Refresh";
 
-const App = () => (
-  <div className="App">
-    <Router>
-      <Switch>
-        <Route path="/" exact>
-          <Home/>
-        </Route>
-        <UnAuthorized path="/login">
-          <Login/>
-        </UnAuthorized>
-        <UnAuthorized path="/register">
-          <Register/>
-        </UnAuthorized>
-        <Route path="/tos">
-          <TOS/>
-        </Route>
-        <Route path="/policy">
-          <PrivacyPolicy/>
-        </Route>
-        <Route path="/refresh">
-          <Refresh/>
-        </Route>
-        <Private path="/inventory">
-          <Inventory/>
-        </Private>
-        <Private path="/profile">
-          <Profile/>
-        </Private>
-        <UnAuthorized path="/forgot-password">
-          <ForgotPassword/>
-        </UnAuthorized>
-      </Switch>
-    </Router>
-  </div>
-);
+import "./App.scss";
+import Nav from "./Components/Nav";
+import Header from "./Components/Header";
+
+const App = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  return (
+    <div className="App">
+      <Router>
+        <Header setShow={setShowSidebar}/>
+        <Nav show={showSidebar} setShow={setShowSidebar}/>
+        <Switch>
+          <Route path="/" exact>
+            <Home/>
+          </Route>
+          <UnAuthorized path="/login">
+            <Login/>
+          </UnAuthorized>
+          <UnAuthorized path="/register">
+            <Register/>
+          </UnAuthorized>
+          <Route path="/tos">
+            <TOS/>
+          </Route>
+          <Route path="/policy">
+            <PrivacyPolicy/>
+          </Route>
+          <Route path="/refresh">
+            <Refresh/>
+          </Route>
+          <Private path="/inventory">
+            <Inventory/>
+          </Private>
+          <Private path="/profile">
+            <Profile/>
+          </Private>
+          <UnAuthorized path="/forgot-password">
+            <ForgotPassword/>
+          </UnAuthorized>
+        </Switch>
+      </Router>
+    </div>
+  );
+};
 
 export default App;
