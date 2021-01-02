@@ -30,7 +30,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Header setShow={setShowSidebar}/>
-        <Nav show={showSidebar} setShow={setShowSidebar}/>
+        <Nav show={showSidebar}/>
         <Switch>
           <Route path="/" exact>
             <Home/>
