@@ -4,6 +4,11 @@
 }
 
 @font-face {
+  font-family: "Lato Bold";
+  src: url("./assets/fonts/lato_bold.woff2");
+}
+
+@font-face {
   font-family: "Lato Black";
   src: url("./assets/fonts/lato_black.woff2");
 }
@@ -58,6 +63,13 @@ button {
   font-family: "Lato Regular";
   font-size: 16px;
   cursor: pointer;
+}
+
+input {
+  outline: none;
+  color: #eee;
+  font-family: "Lato Regular";
+  background: transparent;
 }
 
 @media only screen and (min-width: 800px) {
