@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Check from "../assets/Icons/Check";
+
+import "./Register.scss";
 
 function Register() {
   const history = useHistory();
@@ -86,38 +89,27 @@ function Register() {
   }, [history, username, email, password1, password2, agreement]);
   return (
     <div className="page register">
-      <h1>Cocktail Hunter</h1>
-      <p>Find cocktails you can make based on your inventory.</p>
-      <h2>Register</h2>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
-      </nav>
+      <h2>Create your account</h2>
+      <h1>Start making cocktails</h1>
       <section>
         <div className="fields">
-          <label>
+          <div className="field">
             <p>Username</p>
             {warnUsername.length > 0 && <p>ERROR: {warnUsername}</p>}
             <input
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
-          </label>
-          <label>
+          </div>
+          <div className="field">
             <p>Email</p>
             {warnEmail.length > 0 && <p>ERROR: {warnEmail}</p>}
             <input
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
-          </label>
-          <label>
+          </div>
+          <div className="field">
             <p>Password</p>
             {warnPass1.length > 0 && <p>ERROR: {warnPass1}</p>}
             <input
@@ -125,8 +117,8 @@ function Register() {
               value={password1}
               onChange={e => setPassword1(e.target.value)}
             />
-          </label>
-          <label>
+          </div>
+          <div className="field">
             <p>Repeat password</p>
             {warnPass2.length > 0 && <p>ERROR: {warnPass2}</p>}
             <input
@@ -134,14 +126,17 @@ function Register() {
               value={password2}
               onChange={e => setPassword2(e.target.value)}
             />
-          </label>
-          <div>
-            {warnAgreement.length > 0 && <p>ERROR: {warnAgreement}</p>}
-            <label>
-              <input type="checkbox" checked={agreement} onChange={e => setAgreement(e.target.checked)}/>
-              I agree to the <Link to="/tos">Terms of Service</Link> and <Link to="/policy">Privacy Policy</Link>
-            </label>
           </div>
+        </div>
+        <div className="agreement">
+          {warnAgreement.length > 0 && <p>ERROR: {warnAgreement}</p>}
+          <div
+            className={`checkbox checked-${agreement}`}
+            onClick={() => setAgreement(state => !state)}
+          >
+            <Check/>
+          </div>
+          <p>I agree to the <Link to="/tos">Terms of Service</Link> and <Link to="/policy">Privacy Policy</Link></p>
         </div>
         {warn.length > 0 && <p>ERROR: {warn}</p>}
         <button onClick={register}>

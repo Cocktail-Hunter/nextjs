@@ -1,0 +1,79 @@
+.page.register {
+  h1 {
+    font-family: "Lato Black";
+    margin-top: .3em;
+  }
+
+  .fields {
+    margin: 2em 0;
+  }
+
+  .field {
+    margin: 1em 0;
+
+    p {
+      font-family: "Lato Bold";
+      margin-bottom: .5em;
+    }
+  }
+
+  input {
+    border: solid 2px #3F378A;
+    border-radius: 15px;
+    padding: .5em 1em;
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .agreement {
+    margin-bottom: 1em;
+    display: grid;
+    gap: .5em;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+
+    .checkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 25px;
+      width: 25px;
+      border: solid 2px #3F378A;
+      border-radius: 15px;
+      cursor: pointer;
+
+      &.checked-true {
+        background: #3F378A;
+
+        svg {
+          opacity: 1;
+        }
+      }
+
+      svg {
+        opacity: 0;
+        width: .7em;
+        transition: opacity 200ms ease-in-out;
+      }
+    }
+  }
+
+  button {
+    margin-top: 1em;
+    background: #F29BAB;
+    color: #181437;
+    padding: .8em 1em;
+    border-radius: 15px;
+    font-family: "Lato Black";
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media only screen and (min-width: 300px) {
+  .page.login .actions {
+    grid-template-columns: auto auto 1fr;
+  }
+}
