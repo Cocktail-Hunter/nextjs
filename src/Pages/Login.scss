@@ -1,0 +1,47 @@
+.page.login {
+  h1 {
+    font-family: "Lato Black";
+    margin-top: .3em;
+  }
+
+  .field {
+    margin: 1em 0;
+
+    p {
+      font-family: "Lato Bold";
+      margin-bottom: .5em;
+    }
+  }
+
+  input {
+    border: solid 2px #3F378A;
+    border-radius: 15px;
+    padding: .5em 1em;
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .actions {
+    display: grid;
+    align-items: center;
+    gap: 1em;
+  }
+
+  button {
+    background: #F29BAB;
+    color: #181437;
+    padding: .8em 1em;
+    border-radius: 15px;
+    font-family: "Lato Black";
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media only screen and (min-width: 300px) {
+  .page.login .actions {
+    grid-template-columns: auto auto 1fr;
+  }
+}

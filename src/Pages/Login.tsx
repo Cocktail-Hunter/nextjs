@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ILoginPayload } from "../interfaces";
 
+import "./Login.scss";
+
 function Login() {
   const history = useHistory();
 
@@ -64,30 +66,19 @@ function Login() {
 
   return (
     <div className="page login">
-      <h1>Cocktail Hunter</h1>
-      <p>Find cocktails you can make based on your inventory.</p>
-      <h2>Login</h2>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-        </ul>
-      </nav>
+      <h2>Enter your account</h2>
+      <h1>Start making cocktails</h1>
       <section>
         <div className="fields">
-          <label>
+          <div className="field">
             <p>Email</p>
             {warnEmail.length > 0 && <p>ERROR: {warnEmail}</p>}
             <input
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
-          </label>
-          <label>
+          </div>
+          <div className="field">
             <p>Password</p>
             {warnPass.length > 0 && <p>ERROR: {warnPass}</p>}
             <input
@@ -95,17 +86,17 @@ function Login() {
               onChange={e => setPassword(e.target.value)}
               type="password"
             />
-          </label>
+          </div>
         </div>
         {warn.length > 0 && <p>ERROR: {warn}</p>}
-        <button onClick={login}>
-          Authenticate
-        </button>
-        <Link to="/forgot-password">
-          <button>
-            Forgot Password
+        <div className="actions">
+          <button onClick={login}>
+            Login
           </button>
-        </Link>
+          <Link to="/forgot-password">
+            Reset Password
+          </Link>
+        </div>
       </section>
     </div>
   );
