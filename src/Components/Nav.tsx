@@ -2,8 +2,6 @@ import React, { FC, useCallback } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 
-import Header from "./Header";
-
 import Home from "../assets/Icons/Home";
 import Contact from "../assets/Icons/Contact";
 import About from "../assets/Icons/About";
@@ -18,10 +16,9 @@ import "./Nav.scss";
 
 interface Props {
   show: boolean,
-  setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Nav: FC<Props> = ({show, setShow}) => {
+const Nav: FC<Props> = ({show}) => {
   const history = useHistory();
   const authed = useAuth();
 
@@ -32,7 +29,6 @@ const Nav: FC<Props> = ({show, setShow}) => {
 
   return (
     <nav className={`show-${show}`}>
-      <Header setShow={setShow}/>
       <div className="spacing"/>
       <NavLink exact to="/" className="item">
         <div className="icon">
@@ -86,7 +82,7 @@ const Nav: FC<Props> = ({show, setShow}) => {
       </NavLink>
       {!authed && (
         <>
-          <NavLink to="/about" className="item">
+          <NavLink to="/terms-of-service" className="item">
             <div className="icon">
               <Contract/>
             </div>
