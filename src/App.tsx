@@ -18,10 +18,11 @@ import Inventory from "./Pages/Inventory/Index";
 import Profile from "./Pages/Profile";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Refresh from "./Pages/Refresh";
-
-import "./App.scss";
 import Nav from "./Components/Nav";
 import Header from "./Components/Header";
+import About from "./Pages/About";
+
+import "./App.scss";
 
 const App = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -46,6 +47,9 @@ const App = () => {
           </Route>
           <Route path="/policy">
             <PrivacyPolicy/>
+          </Route>
+          <Route path="/about">
+            <About/>
           </Route>
           <Route path="/refresh">
             <Refresh/>
