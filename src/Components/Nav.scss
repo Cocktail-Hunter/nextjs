@@ -26,7 +26,6 @@ nav {
     display: flex;
     align-items: center;
     transition: background 100ms ease-in-out;
-    border-radius: 0 15px 15px 0;
 
     &.active {
       background: #2D294E;
@@ -60,6 +59,10 @@ nav {
 
     header {
       display: none;
+    }
+
+    .item {
+      border-radius: 0 15px 15px 0;
     }
   }
 }
