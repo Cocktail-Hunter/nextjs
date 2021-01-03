@@ -1,6 +1,5 @@
-import React, { FC, useCallback } from "react";
-import { NavLink, useHistory } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
+import React, { FC, useCallback, useContext, useEffect } from "react";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 
 import Home from "../assets/Icons/Home";
 import Contact from "../assets/Icons/Contact";
@@ -17,9 +16,11 @@ import "./Nav.scss";
 
 interface Props {
   show: boolean,
+  setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Nav: FC<Props> = ({show}) => {
+const Nav: FC<Props> = ({show, setShow}) => {
+  const location = useLocation();
   const history = useHistory();
   const {authed, setAuthed} = useContext(AuthContext) as ContextProps;
 
@@ -28,6 +29,10 @@ const Nav: FC<Props> = ({show}) => {
     setAuthed(false);
     history.push("/login");
   }, [history, setAuthed]);
+
+  useEffect(() => {
+    setShow(false);
+  }, [location, setShow]);
 
   return (
     <nav className={`show-${show}`}>
