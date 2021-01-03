@@ -48,6 +48,7 @@ body {
 .page {
   grid-area: page;
   padding: 2em;
+  animation: appear 500ms cubic-bezier(0.83, 0, 0.17, 1);
 }
 
 a {
@@ -70,6 +71,15 @@ input {
   color: #eee;
   font-family: "Lato Regular";
   background: transparent;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media only screen and (min-width: 800px) {
