@@ -27,7 +27,7 @@ import {AuthContext} from "./Contexts/Auth";
 import "./App.scss";
 
 const App = () => {
-  const [authed, setAuthed] = useState(false);
+  const [authed, setAuthed] = useState<boolean | null>(null);
   const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
