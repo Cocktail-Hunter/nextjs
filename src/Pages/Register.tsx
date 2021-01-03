@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Check from "../assets/Icons/Check";
+import { AuthContext, ContextProps } from "../Contexts/Auth";
 
 import "./Register.scss";
 
 function Register() {
   const history = useHistory();
+  const {setAuthed} = useContext(AuthContext) as ContextProps;
 
   const [username, setUsername] = useState("");
   const [warnUsername, setWarnUsername] = useState("");
@@ -76,6 +78,7 @@ function Register() {
         if (req.status === 201) {
           localStorage.setItem("accessToken", payload.tokens.access);
           localStorage.setItem("refreshToken", payload.tokens.refresh);
+          setAuthed(true);
           history.push("/");
 
           return;

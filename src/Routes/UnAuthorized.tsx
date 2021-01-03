@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
+import { AuthContext, ContextProps } from "../Contexts/Auth";
 
 interface Props {
   path: String
@@ -8,7 +8,7 @@ interface Props {
 
 const Public: FC<Props> = ({children, path}) => {
   const history = useHistory();
-  const authed = useAuth();
+  const {authed} = useContext(AuthContext) as ContextProps;
 
   useEffect(() => {
     if (authed) {

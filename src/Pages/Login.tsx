@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { AuthContext, ContextProps } from "../Contexts/Auth";
 import { ILoginPayload } from "../interfaces";
 
 import "./Login.scss";
 
 function Login() {
   const history = useHistory();
+  const {setAuthed} = useContext(AuthContext) as ContextProps;
 
   const [email, setEmail] = useState("");
   const [warnEmail, setWarnEmail] = useState("");
@@ -52,6 +54,7 @@ function Login() {
         if (req.status === 200) {
           localStorage.setItem("accessToken", payload.access);
           localStorage.setItem("refreshToken", payload.refresh);
+          setAuthed(true);
           history.push("/");
 
           return;
@@ -62,7 +65,7 @@ function Login() {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     }
-  }, [history, email, password]);
+  }, [email, history, password, setAuthed]);
 
   return (
     <div className="page login">
