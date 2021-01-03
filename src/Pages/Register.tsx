@@ -89,7 +89,7 @@ function Register() {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     }
-  }, [history, username, email, password1, password2, agreement]);
+  }, [agreement, email, history, password1, password2, setAuthed, username]);
   return (
     <div className="page register">
       <h2>Create your account</h2>
