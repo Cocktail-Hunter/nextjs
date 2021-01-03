@@ -11,6 +11,7 @@ import Login from "../assets/Icons/Login";
 import Register from "../assets/Icons/Register";
 import Logout from "../assets/Icons/Logout";
 import Contract from "../assets/Icons/Contract";
+import { AuthContext, ContextProps } from "../Contexts/Auth";
 
 import "./Nav.scss";
 
@@ -20,12 +21,13 @@ interface Props {
 
 const Nav: FC<Props> = ({show}) => {
   const history = useHistory();
-  const authed = useAuth();
+  const {authed, setAuthed} = useContext(AuthContext) as ContextProps;
 
   const logout = useCallback(() => {
     localStorage.clear();
+    setAuthed(false);
     history.push("/login");
-  }, [history]);
+  }, [history, setAuthed]);
 
   return (
     <nav className={`show-${show}`}>
