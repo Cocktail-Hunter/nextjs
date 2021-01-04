@@ -47,9 +47,9 @@ nav {
 
 @media only screen and (min-width: 800px) {
   nav {
-    position: unset;
-    top: unset;
-    left: unset;
+    position: fixed;
+    width: 300px;
+    left: 5px;
     background: none;
     transition: unset;
 
