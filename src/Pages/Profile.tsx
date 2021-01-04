@@ -1,6 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Check from "../assets/Icons/Check";
+import Contract from "../assets/Icons/Contract";
+import Cross from "../assets/Icons/Cross";
 import { IUser } from "../interfaces";
+
+import "./Profile.scss";
 
 function Profile() {
   const history = useHistory();
@@ -41,11 +46,6 @@ function Profile() {
     })();
   }, [history]);
 
-  const logout = useCallback(() => {
-    localStorage.clear();
-    history.push("/");
-  }, [history]);
-
   let createdAt = "";
   let lastLogin = "";
 
@@ -54,45 +54,86 @@ function Profile() {
     lastLogin = (new Date(user.lastLogin)).toDateString();
   }
 
+  console.log(user)
+
   return (
     <div className="page profile">
-      <h1>Cocktail Hunter</h1>
-      <p>Find cocktails you can make based on your inventory.</p>
-      <h2>Profile</h2>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/inventory">Inventory</Link>
-          </li>
-        </ul>
-      </nav>
-      {warn && <p>{warn}</p>}
       <section>
-        <p>Username: {user?.username}</p>
-        <p>Email: {user?.email}</p>
-        <p>Created at: {createdAt}</p>
-        <p>Last login: {lastLogin}</p>
+        <h1>Details</h1>
+        <p>You joined us on <span className="highlight">{createdAt}</span> and you were last seen on <span className="highlight">{lastLogin}</span>.</p>
+        {warn && <p>{warn}</p>}
+        <div className="field">
+          <p>Username</p>
+          <p>{user?.username}</p>
+        </div>
+        <div className="field">
+          <p>Email</p>
+          <div className="email">
+            <p>{user?.email}</p>
+            <div className="verified">
+              <div className="icon">
+                {user?.isVerified
+                  ? <Check/>
+                  : <Cross/>
+                }
+              </div>
+              {user?.isVerified
+                ? <p>Verified</p>
+                : <p>Not verified</p>
+              }
+            </div>
+          </div>
+          <button className="emailVerificationBtn">Send a new email verification link</button>
+        </div>
       </section>
       <section>
-        <button>Change password</button>
-        <button>Delete account</button>
-        <button>Verify email</button>
-        <button>Download my data</button>
-        <button onClick={logout}>Logout</button>
+        <h1>Manage password</h1>
+        <div className="fields">
+          <div className="field">
+            <p>Current password</p>
+            <input/>
+          </div>
+          <div className="field">
+            <p>New password</p>
+            <input/>
+          </div>
+        </div>
+        <button>Update password</button>
       </section>
+      <section className="data">
+        <h1>Data</h1>
+        <p>
+          You have the right to download all the data we store on you, simply click the
+          button below and you will download a <span className="highlight">.zip</span> file
+          which you can extract on your system.
+        </p>
+        <button>Download</button>
+      </section>
+      <section className="account">
+        <h1>Account</h1>
+        <p>
+          After sending the request, we will mark your account for deletion where you will
+          have 30 days to change your mind; simply login to cancel. After 30 days, your
+          account and data will be fully deleted and the changes will be unreversible.
+        </p>
+        <div className="delAccountBtn">
+          <p className="highlight">
+            <i>You will be logged out straight away.</i>
+          </p>
+          <button>Send request to delete my account</button>
+        </div>
+      </section>
+      <div className="separator"/>
       <footer>
-        <hr/>
-        <ul>
-          <li>
-            <Link to="/tos">Terms of Service</Link>
-          </li>
-          <li>
-            <Link to="/privacy policy">Privacy Policy</Link>
-          </li>
-        </ul>
+        <div className="icon">
+          <Contract/>
+        </div>
+        <Link to="/tos">Terms of Service</Link>
+        <Link to="/tos">Privacy Policy</Link>
+        <div className="legal">
+          <p>Copyright &copy; 2021 Eray Chumak and William Law</p>
+          <p>All Rights Reserved</p>
+        </div>
       </footer>
     </div>
   );
