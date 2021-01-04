@@ -25,6 +25,25 @@
   font-weight: normal;
 }
 
+:root {
+  scrollbar-color: #BC86E8 #120E2F;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+
+  &-track {
+    background: #120E2F;
+    border-radius: 0 4px 4px 0;
+  }
+
+  &-thumb {
+    border-radius: 0 4px 4px 0;
+    background: #BC86E8;
+  }
+}
+
 html, body, #root, .App {
   height: 100%;
   width: 100%;
@@ -93,6 +112,6 @@ input {
   }
 
   .page {
-    padding: 2em 6em;
+    padding: calc(64px + 2em) 6em 0 6em;
   }
 }
