@@ -31,7 +31,6 @@
 
 ::-webkit-scrollbar {
   width: 15px;
-  height: 15px;
 
   &-track {
     background: #120E2F;
@@ -51,15 +50,16 @@ html, body, #root, .App {
 
 body {
   background: linear-gradient(135deg, #EB98B2, #BC86E8, #B5D8FF);
-  padding: 5px;
+  padding-top: 5px;
   font-size: 16px;
+  height: 100vh;
+  overflow: hidden;
   font-family: "Lato Regular";
 }
 
 .App {
   position: relative;
   background: linear-gradient(135deg, #231E46, #120E2F);
-  border-radius: 5px;
   color: #eee;
   overflow-y: auto;
 }
