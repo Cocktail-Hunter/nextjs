@@ -1,11 +1,12 @@
 import React, {  useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Check from "../assets/Icons/Check";
-import Contract from "../assets/Icons/Contract";
-import Cross from "../assets/Icons/Cross";
-import { IUser } from "../interfaces";
+import Check from "../../assets/Icons/Check";
+import Contract from "../../assets/Icons/Contract";
+import Cross from "../../assets/Icons/Cross";
+import { IUser } from "../../interfaces";
+import ChangePassword from "./ChangePassword";
 
-import "./Profile.scss";
+import "./Index.scss";
 
 function Profile() {
   const history = useHistory();
@@ -54,8 +55,6 @@ function Profile() {
     lastLogin = (new Date(user.lastLogin)).toDateString();
   }
 
-  console.log(user)
-
   return (
     <div className="page profile">
       <section>
@@ -83,23 +82,12 @@ function Profile() {
               }
             </div>
           </div>
-          <button className="emailVerificationBtn">Send a new email verification link</button>
+          {!user?.isVerified && (
+            <button className="emailVerificationBtn">Send a new email verification link</button>
+          )}
         </div>
       </section>
-      <section>
-        <h1>Manage password</h1>
-        <div className="fields">
-          <div className="field">
-            <p>Current password</p>
-            <input/>
-          </div>
-          <div className="field">
-            <p>New password</p>
-            <input/>
-          </div>
-        </div>
-        <button>Update password</button>
-      </section>
+      <ChangePassword/>
       <section className="data">
         <h1>Data</h1>
         <p>
