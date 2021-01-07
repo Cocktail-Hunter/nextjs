@@ -15,7 +15,7 @@ import Register from "./Pages/Register";
 import TOS from "./Pages/TOS";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Inventory from "./Pages/Inventory/Index";
-import Profile from "./Pages/Profile";
+import Profile from "./Pages/Profile/Index";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Refresh from "./Pages/Refresh";
 import Nav from "./Components/Nav";
