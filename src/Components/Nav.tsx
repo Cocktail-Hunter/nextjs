@@ -34,8 +34,18 @@ const Nav: FC<Props> = ({show, setShow}) => {
     setShow(false);
   }, [location, setShow]);
 
+  const updatePos = useCallback(e => {
+    const item = e.target.getBoundingClientRect();
+
+    const x = e.clientX - item.left;
+    const y = e.clientY - item.top;
+
+    e.target.style.setProperty('--x', `${ x }px`);
+    e.target.style.setProperty('--y', `${ y }px`);
+  }, []);
+
   return (
-    <nav className={`show-${show}`}>
+    <nav className={`show-${show}`} onMouseMove={updatePos}>
       <div className="spacing"/>
       <NavLink exact to="/" className="item">
         <div className="icon">
