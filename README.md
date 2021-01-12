@@ -2,14 +2,10 @@
 
 Find cocktails you can make based on your inventory.
 
+### Production
+
+https://cocktail-hunter.vercel.app/
+
 ### Context
 
-People sometimes don't have a wide variety of alcohol in their homes and might not want to go all the way to the store for that one mysterious ingredient.
-
-### This is where this app comes in...
-
-Users will be able to input a list of all the alcohol and ingredients they've got and the app will return all possible cocktails the user can make. By default, it will result with cocktails strictly with the ingredients the user has but it can be toggled off where the app can result with cocktails with 1-2 missing ingredients.
-
-# Long term plans
-
-Users are able to publish their own cocktail recipes that they've discovered or want to share with the community.
+Like some families, we have that one cupboard that's full of alcohol that most likely just sits there and collects dust. With my recent job as a bartender, looking at my cupboard at home, I didn't really know what type of cocktails I could make and sure I can simply search it up but that sounded like lot of hassle and back and forth between tabs. That is when the idea sparked to create this app to allow people such as myself to be able to simply put all that you have and let the app do its thing and show you specific cocktails that you can make straight away and treat yourself to a nice cocktail that you can make at home.
