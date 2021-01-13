@@ -2,6 +2,8 @@
 
 Find cocktails you can make based on your inventory.
 
+![Home Preview](./previews/home.png "Home Preview")
+
 ### Production
 
 https://cocktail-hunter.vercel.app/
