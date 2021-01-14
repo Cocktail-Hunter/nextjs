@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   BrowserRouter as Router,
@@ -27,8 +27,18 @@ import {AuthContext} from "./Contexts/Auth";
 import "./App.scss";
 
 const App = () => {
+  const appRef = useRef<HTMLDivElement | null>(null);
+
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [showSidebar, setShowSidebar] = useState(false);
+
+  useEffect(() => {
+    if (!appRef.current) return;
+
+    showSidebar
+      ? appRef.current.style.overflow = "hidden"
+      : appRef.current.style.overflow = "auto";
+  }, [showSidebar])
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -42,7 +52,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App" ref={appRef}>
       <Router>
         <AuthContext.Provider value={{authed, setAuthed}}>
           <Header setShow={setShowSidebar}/>
