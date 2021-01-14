@@ -17,12 +17,16 @@
     }
   }
 
-  input {
+  .field input {
     border: solid 2px #3F378A;
     border-radius: 15px;
     padding: .5em 1em;
     width: 100%;
     max-width: 250px;
+  }
+
+  .field .highlight {
+    font-size: 0.8em;
   }
 
   .agreement {
@@ -58,7 +62,11 @@
     }
   }
 
-  button {
+  .error {
+    margin-bottom: 2em;
+  }
+
+  input[type=submit] {
     margin-top: 1em;
     background: #F29BAB;
     color: #181437;

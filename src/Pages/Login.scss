@@ -17,12 +17,20 @@
     }
   }
 
-  input {
+  .field input {
     border: solid 2px #3F378A;
     border-radius: 15px;
     padding: .5em 1em;
     width: 100%;
     max-width: 250px;
+  }
+
+  .field .highlight {
+    font-size: 0.8em;
+  }
+
+  .error {
+    margin-bottom: 2em;
   }
 
   .actions {
@@ -31,7 +39,7 @@
     gap: 1em;
   }
 
-  button {
+  input[type=submit] {
     background: #F29BAB;
     color: #181437;
     padding: .8em 1em;

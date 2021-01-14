@@ -12,25 +12,41 @@ function Login() {
   const [email, setEmail] = useState("");
   const [warnEmail, setWarnEmail] = useState("");
 
-  const [password, setPassword] = useState("");
+  const [pass, setPass] = useState("");
   const [warnPass, setWarnPass] = useState("");
 
   const [warn, setWarn] = useState("");
 
-  useEffect(() => setWarn(""), [email, password]);
+  useEffect(() => setWarn(""), [email, pass]);
   useEffect(() => setWarnEmail(""), [email]);
-  useEffect(() => setWarnPass(""), [password]);
+  useEffect(() => setWarnPass(""), [pass]);
 
-  const login = useCallback(async () => {
+  const login = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const emailRegex = /^\S+@\S+\.\S+$/g;
+
     if (email.length === 0) {
-      setWarnEmail("Empty");
+      setWarnEmail("This field is required");
+      return;
     }
 
-    if (password.length < 8) {
-      setWarnPass("Password has to be over 8 chars long.");
+    if (!emailRegex.test(email)) {
+      setWarnEmail("Improper format");
+      return;
     }
 
-    if (email.length > 0 && password.length > 8) {
+    if (pass.length === 0) {
+      setWarnPass("This field is required");
+      return;
+    }
+
+    if (pass.length < 8) {
+      setWarnPass("Has to be 8 chars or above");
+      return;
+    }
+
+    if (email.length > 0 && pass.length > 8) {
       try {
         const body: RequestInit = {
           method: "POST",
@@ -39,7 +55,7 @@ function Login() {
           },
           body: JSON.stringify({
             email,
-            password
+            password: pass
           })
         }
 
@@ -65,42 +81,38 @@ function Login() {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     }
-  }, [email, history, password, setAuthed]);
+  }, [email, history, pass, setAuthed]);
 
   return (
     <div className="page login">
       <h2>Enter your account</h2>
       <h1>Start making cocktails</h1>
-      <section>
+      <form onSubmit={login}>
         <div className="fields">
           <div className="field">
-            <p>Email</p>
-            {warnEmail.length > 0 && <p>ERROR: {warnEmail}</p>}
+            <p>Email{warnEmail.length > 0 && <span className="highlight"> - {warnEmail}</span>}</p>
             <input
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
           </div>
           <div className="field">
-            <p>Password</p>
-            {warnPass.length > 0 && <p>ERROR: {warnPass}</p>}
+            <p>Password{warnPass.length > 0 && <span className="highlight"> - {warnPass}</span>}</p>
             <input
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              value={pass}
+              onChange={e => setPass(e.target.value)}
               type="password"
             />
           </div>
         </div>
-        {warn.length > 0 && <p>ERROR: {warn}</p>}
+        {warn.length > 0 && <p className="error highlight">{warn}</p>}
         <div className="actions">
-          <button onClick={login}>
-            Login
-          </button>
+          <input type="submit" value="Login"/>
           <Link to="/forgot-password">
             Reset Password
           </Link>
         </div>
-      </section>
+      </form>
     </div>
   );
 }

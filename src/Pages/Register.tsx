@@ -15,45 +15,61 @@ function Register() {
   const [email, setEmail] = useState("");
   const [warnEmail, setWarnEmail] = useState("");
 
-  const [password1, setPassword1] = useState("");
-  const [warnPass1, setWarnPass1] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [warnPass2, setWarnPass2] = useState("");
+  const [pass, setPass] = useState("");
+  const [warnPass, setWarnPass] = useState("");
 
   const [agreement, setAgreement] = useState(false);
   const [warnAgreement, setWarnAgreement] = useState("");
 
   const [warn, setWarn] = useState("");
 
-  useEffect(() => setWarn(""), [username, email, password1, password2, agreement]);
+  useEffect(() => setWarn(""), [username, email, pass, agreement]);
   useEffect(() => setWarnUsername(""), [username]);
   useEffect(() => setWarnEmail(""), [email]);
-  useEffect(() => setWarnPass1(""), [password1]);
-  useEffect(() => setWarnPass2(""), [password2]);
+  useEffect(() => setWarnPass(""), [pass]);
   useEffect(() => setWarnAgreement(""), [agreement]);
 
-  const register = useCallback(async () => {
+  const register = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const emailRegex = /^\S+@\S+\.\S+$/g;
+
+    if (username.length === 0) {
+      setWarnUsername("This field is required");
+      return;
+    }
+
     if (username.length < 3) {
-      setWarnUsername("Has to be over 3 chars long.");
+      setWarnUsername("Has to be 3 chars or above");
+      return;
     }
 
     if (email.length === 0) {
-      setWarnEmail("Empty");
+      setWarnEmail("This field is required");
+      return;
     }
 
-    if (password1.length < 8) {
-      setWarnPass1("Has to be over 8 chars long.");
+    if (!emailRegex.test(email)) {
+      setWarnEmail("Improper format");
+      return;
     }
 
-    if (password1 !== password2) {
-      setWarnPass2("Passwords don't match");
+    if (pass.length === 0) {
+      setWarnPass("This field is required");
+      return;
+    }
+
+    if (pass.length < 8) {
+      setWarnPass("Has to be 8 chars or above");
+      return;
     }
 
     if (!agreement) {
       setWarnAgreement("You have to agree to our ToS to have an account with us!");
+      return;
     }
 
-    if (username.length > 3 && email.length > 0 && password1.length > 8 && password1 === password2 && agreement) {
+    if (username.length > 3 && email.length > 0 && pass.length > 8 && agreement) {
       try {
         const body: RequestInit = {
           method: "POST",
@@ -63,7 +79,7 @@ function Register() {
           body: JSON.stringify({
             username,
             email,
-            password: password1
+            password: pass
           })
         }
 
@@ -89,45 +105,34 @@ function Register() {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     }
-  }, [agreement, email, history, password1, password2, setAuthed, username]);
+  }, [agreement, email, history, pass, setAuthed, username]);
+
   return (
     <div className="page register">
       <h2>Create your account</h2>
       <h1>Start making cocktails</h1>
-      <section>
+      <form onSubmit={register}>
         <div className="fields">
           <div className="field">
-            <p>Username</p>
-            {warnUsername.length > 0 && <p>ERROR: {warnUsername}</p>}
+            <p>Username{warnUsername.length > 0 && <span className="highlight"> - {warnUsername}</span>}</p>
             <input
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
           </div>
           <div className="field">
-            <p>Email</p>
-            {warnEmail.length > 0 && <p>ERROR: {warnEmail}</p>}
+            <p>Email{warnEmail.length > 0 && <span className="highlight"> - {warnEmail}</span>}</p>
             <input
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
           </div>
           <div className="field">
-            <p>Password</p>
-            {warnPass1.length > 0 && <p>ERROR: {warnPass1}</p>}
+            <p>Password{warnPass.length > 0 && <span className="highlight"> - {warnPass}</span>}</p>
             <input
               type="password"
-              value={password1}
-              onChange={e => setPassword1(e.target.value)}
-            />
-          </div>
-          <div className="field">
-            <p>Repeat password</p>
-            {warnPass2.length > 0 && <p>ERROR: {warnPass2}</p>}
-            <input
-              type="password"
-              value={password2}
-              onChange={e => setPassword2(e.target.value)}
+              value={pass}
+              onChange={e => setPass(e.target.value)}
             />
           </div>
         </div>
@@ -141,11 +146,9 @@ function Register() {
           </div>
           <p>I agree to the <Link to="/tos">Terms of Service</Link> and <Link to="/policy">Privacy Policy</Link></p>
         </div>
-        {warn.length > 0 && <p>ERROR: {warn}</p>}
-        <button onClick={register}>
-          Register
-        </button>
-      </section>
+        {warn.length > 0 && <p className="error highlight">{warn}</p>}
+        <input type="submit" value="Register"/>
+      </form>
     </div>
   );
 }
