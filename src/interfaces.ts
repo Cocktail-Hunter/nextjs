@@ -31,6 +31,12 @@ export enum ESector {
   PRIVATE = "false"
 };
 
+export enum EAlcoholic {
+  ONLY_ALCOHOLIC = "true",
+  ONLY_NON_ALCOHOLIC = "false",
+  BOTH = "null"
+};
+
 export interface IIngredient {
   id: number,
   name: string,
