@@ -48,24 +48,30 @@ const Nav: FC<Props> = ({show, setShow}) => {
     <nav className={`show-${show}`} onMouseMove={updatePos}>
       <div className="spacing"/>
       <NavLink exact to="/" className="item">
-        <div className="icon">
-          <Home/>
+        <div className="innerWrapper">
+          <div className="icon">
+            <Home/>
+          </div>
+          <p>Home</p>
         </div>
-        <p>Home</p>
       </NavLink>
       {authed && (
         <>
           <NavLink to="/profile" className="item">
-            <div className="icon">
-              <Profile/>
+            <div className="innerWrapper">
+              <div className="icon">
+                <Profile/>
+              </div>
+              <p>Profile</p>
             </div>
-            <p>Profile</p>
           </NavLink>
           <NavLink to="/inventory" className="item">
-            <div className="icon">
-              <Inventory/>
+            <div className="innerWrapper">
+              <div className="icon">
+                <Inventory/>
+              </div>
+              <p>Inventory</p>
             </div>
-            <p>Inventory</p>
           </NavLink>
         </>
       )}
@@ -86,16 +92,20 @@ const Nav: FC<Props> = ({show, setShow}) => {
         </>
       )}
       <NavLink to="/contact" className="item">
-        <div className="icon">
-          <Contact/>
+        <div className="innerWrapper">
+          <div className="icon">
+            <Contact/>
+          </div>
+          <p>Contact</p>
         </div>
-        <p>Contact</p>
       </NavLink>
       <NavLink to="/about" className="item">
-        <div className="icon">
-          <About/>
+        <div className="innerWrapper">
+          <div className="icon">
+            <About/>
+          </div>
+          <p>About</p>
         </div>
-        <p>About</p>
       </NavLink>
       {!authed && (
         <>
@@ -115,10 +125,12 @@ const Nav: FC<Props> = ({show, setShow}) => {
       )}
       {authed && (
         <div className="item" onClick={logout}>
-          <div className="icon">
-            <Logout/>
+          <div className="innerWrapper">
+            <div className="icon">
+              <Logout/>
+            </div>
+            <p>Logout</p>
           </div>
-          <p>Logout</p>
         </div>
       )}
     </nav>

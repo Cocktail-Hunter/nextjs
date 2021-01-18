@@ -22,34 +22,38 @@ nav {
   }
 
   .item {
-    position: relative;
-    display: flex;
+    display: block;
     cursor: pointer;
-    overflow: hidden;
-    align-items: center;
-    transition: 100ms ease-in-out;
-    transition-property: background, box-shadow;
 
-    &:hover::before {
+    &:hover .innerWrapper::before {
       opacity: 1;
     }
 
-    &::before {
-      content: "";
-      opacity: 0;
-      position: absolute;
-      left: var(--x);
-      top: var(--y);
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle farthest-side, #2D294E, transparent 100%);
-      transform: translate(-50%, -50%);
-      z-index: -1;
-      transition: 10ms ease-in-out;
-      transition-property: left, top;
+    .innerWrapper {
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+      transition: 100ms ease-in-out;
+      transition-property: background, box-shadow;
+
+      &::before {
+        content: "";
+        opacity: 0;
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle farthest-side, #2D294E, transparent 100%);
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        transition: 10ms ease-in-out;
+        transition-property: left, top;
+      }
     }
 
-    &.active {
+    &.active .innerWrapper {
       background: #2D294E;
       cursor: default;
     }
@@ -80,7 +84,11 @@ nav {
     }
 
     .item {
-      border-radius: 0 15px 15px 0;
+      padding: 5px 0;
+
+      .innerWrapper {
+        border-radius: 0 15px 15px 0;
+      }
     }
   }
 }
