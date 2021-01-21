@@ -1,0 +1,78 @@
+.ingredients {
+  .selected {
+    display: grid;
+    gap: .5em;
+    margin-top: 1em;
+    align-items: center;
+    max-width: 300px;
+
+    &.true {
+      grid-template-columns: 1fr auto;
+    }
+
+    p, .unselect {
+      display: flex;
+      align-items: center;
+      border-radius: 15px;
+      border: solid 2px #3F378A;
+    }
+
+    p {
+      padding: 0 1em;
+      height: 40px;
+    }
+
+    .unselect {
+      justify-content: center;
+      cursor: pointer;
+      height: 40px;
+      width: 40px;
+      animation: appear 200ms ease-in-out;
+
+      &:hover {
+        background: #1F1B41;
+      }
+    }
+  }
+
+  .ingredientsListWrapper {
+    margin-top: 1em;
+    overflow: hidden;
+    border-radius: 15px;
+    border: solid 2px #3F378A;
+    max-width: 300px;
+    height: 150px;
+  }
+
+  .ingredientsList {
+    max-height: 150px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    word-wrap: break-word;
+
+    .empty {
+      padding: .3em 1em;
+      animation: appear 200ms ease-in-out forwards;
+    }
+
+    .ingredient {
+      padding: .3em 1em;
+      background: #1F1B41;
+      cursor: pointer;
+      animation: appear 200ms ease-in-out forwards;
+
+      &:hover {
+        background: #3F378A;
+      }
+
+      &.active {
+        background: #3F378A;
+      }
+    }
+  }
+
+  .disabled-true {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+}
