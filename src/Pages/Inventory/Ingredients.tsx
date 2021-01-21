@@ -1,7 +1,11 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import Check from "../../assets/Icons/Check";
+import Cross from "../../assets/Icons/Cross";
 import { IIngredient, ESector } from "../../interfaces";
 import AddIngredient from "./AddIngredient";
+
+import "./Ingredients.scss";
 
 interface Props {
   sector: ESector,
@@ -15,9 +19,10 @@ interface Props {
 const Ingredients: FC<Props> = (
   {sector, setSector, ingredientsList, setIngredientsList, inventory, setInventory}
 ) => {
-  const dropdown = useRef<HTMLSelectElement | null>(null);
   const history = useHistory();
 
+  const [ selected, setSelected ] = useState("Select ingredient");
+  const [ selectedID, setSelectedID ] = useState<number | null>(null);
   const [ warn, setWarn ] = useState("");
 
   useEffect(() => {
@@ -62,30 +67,64 @@ const Ingredients: FC<Props> = (
     })();
   }, [history, inventory, sector, setIngredientsList]);
 
-  const handleSector = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSector(e.target.id as ESector);
-  }, [setSector]);
+  const handleSector = useCallback(() => {
+    const selectedSector: ESector = (
+      sector === ESector.PUBLIC ? ESector.PRIVATE : ESector.PUBLIC
+    );
+
+    setSector(selectedSector);
+  }, [sector, setSector]);
+
+  const select = useCallback((ingredient: IIngredient) => {
+    setSelected(ingredient.name);
+    setSelectedID(ingredient.id);
+  }, []);
+
+  const clear = useCallback(() => {
+    setSelected("Select ingredient");
+    setSelectedID(null);
+  }, []);
 
   return (
     <div className="ingredients">
-      <h4>Add ingredient to inventory</h4>
+      <h4>Add a new ingredient</h4>
       {warn && <p>{warn}</p>}
-      <div>
-        <input type="radio" id={ESector.PUBLIC} onChange={handleSector} checked={sector === ESector.PUBLIC}/>
-        <label htmlFor={ESector.PUBLIC}>Show public ingredients</label>
+      <div className="showPrivateOnly">
+        <div
+          className={`checkbox checked-${sector === ESector.PRIVATE}`}
+          onClick={handleSector}
+        >
+          <Check/>
+        </div>
+        <p>Show private ingredients only</p>
       </div>
-      <div>
-        <input type="radio" id={ESector.PRIVATE} onChange={handleSector} checked={sector === ESector.PRIVATE}/>
-        <label htmlFor={ESector.PRIVATE}>Show private ingredients</label>
+      <div className="selectIngredient">
+        <div className="ingredientsListWrapper">
+          <div className="ingredientsList">
+            {ingredientsList.map((ingredient, i) => (
+              <div
+                key={i}
+                className={`ingredient${ingredient.id === selectedID ? " active" : ""}`}
+                onClick={() => select(ingredient)}
+              >
+                <p>{ingredient.name}</p>
+              </div>
+            ))}
+            {ingredientsList.length === 0 && (
+              <p className="empty">No ingredients</p>
+            )}
+          </div>
+        </div>
+        <div className={`selected ${!!selectedID}`}>
+          <p>{selected}</p>
+          {!!selectedID && (
+            <div className="unselect" onClick={clear}>
+              <Cross/>
+            </div>
+          )}
+        </div>
+        <AddIngredient clear={clear} selectedID={selectedID} setInventory={setInventory}/>
       </div>
-      <p>Showing {ingredientsList.length} ingredients:</p>
-      <select ref={dropdown}>
-        <option>Select ingredient</option>
-        {ingredientsList.map((ingredient, i) => (
-          <option key={i} value={ingredient.id}>{ingredient.id} {ingredient.name}</option>
-        ))}
-      </select>
-      <AddIngredient dropdown={dropdown} setInventory={setInventory}/>
     </div>
   );
 }
