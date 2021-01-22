@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 
 import { IRefreshPayload } from "../interfaces";
 
+import "./Refresh.scss";
+
 function Refresh() {
   const history = useHistory();
 
@@ -40,6 +42,7 @@ function Refresh() {
         })
       };
 
+
       try {
         const req = await fetch(`${process.env.REACT_APP_API}/v1/auth/refresh/`, body);
 
@@ -61,19 +64,18 @@ function Refresh() {
         const payload = await req.json();
         setWarn(JSON.stringify(payload));
       } catch (e) {
-        setWarn(`Internal error: ${JSON.stringify(e)}`);
+        setWarn("There has been an unxepected error trying to verify it's you.");
       }
     })();
   }, [history, redirect]);
 
   return (
     <div className="page refresh">
-      <h1>Cocktail Hunter</h1>
-      {redirect
-        ? <p>Verifying its you, this will take a couple seconds!</p>
-        : <p>Seems like you stumbled here by accident...</p>
-      }
-      {warn && <p>ERR: {warn}</p>}
+      {!warn && (redirect
+        ? <h2>Verifying its you, this will take a couple seconds!</h2>
+        : <h2>Seems like you stumbled here by accident...</h2>
+      )}
+      {warn && <h2>{warn}</h2>}
     </div>
   );
 }
