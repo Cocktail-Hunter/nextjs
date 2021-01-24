@@ -78,16 +78,20 @@ const Nav: FC<Props> = ({show, setShow}) => {
       {!authed && (
         <>
           <NavLink to="/login" className="item">
-            <div className="icon">
-              <Login/>
+            <div className="innerWrapper">
+              <div className="icon">
+                <Login/>
+              </div>
+              <p>Login</p>
             </div>
-            <p>Login</p>
           </NavLink>
           <NavLink to="/register" className="item">
-            <div className="icon">
-              <Register/>
+            <div className="innerWrapper">
+              <div className="icon">
+                <Register/>
+              </div>
+              <p>Register</p>
             </div>
-            <p>Register</p>
           </NavLink>
         </>
       )}
@@ -110,16 +114,20 @@ const Nav: FC<Props> = ({show, setShow}) => {
       {!authed && (
         <>
           <NavLink to="/terms-of-service" className="item">
-            <div className="icon">
-              <Contract/>
+            <div className="innerWrapper">
+              <div className="icon">
+                <Contract/>
+              </div>
+              <p>Terms of Service</p>
             </div>
-            <p>Terms of Service</p>
           </NavLink>
           <NavLink to="/privacy-policy" className="item">
-            <div className="icon">
-              <Contract/>
+            <div className="innerWrapper">
+              <div className="icon">
+                <Contract/>
+              </div>
+              <p>Privacy Policy</p>
             </div>
-            <p>Privacy Policy</p>
           </NavLink>
         </>
       )}
