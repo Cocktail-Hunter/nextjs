@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { AuthContext, ContextProps } from "../Contexts/Auth";
 
 import { IRefreshPayload } from "../interfaces";
 
@@ -7,6 +8,7 @@ import "./Refresh.scss";
 
 function Refresh() {
   const history = useHistory();
+  const {setAuthed} = useContext(AuthContext) as ContextProps;
 
   const [ redirect, setRedirect ] = useState("");
   const [ warn, setWarn ] = useState("");
@@ -19,15 +21,20 @@ function Refresh() {
     }
   }, [history.location.search]);
 
+  const logout = useCallback(() => {
+    localStorage.clear();
+    setAuthed(false);
+    history.push("/login");
+  }, [history, setAuthed]);
+
   useEffect(() => {
     if (!redirect) return;
 
     const refreshToken = localStorage.getItem("refreshToken");
 
-    if (!refreshToken) {
-      localStorage.clear();
-      history.push("/login");
 
+    if (!refreshToken) {
+      logout();
       return;
     }
 
@@ -47,9 +54,7 @@ function Refresh() {
         const req = await fetch(`${process.env.REACT_APP_API}/v1/auth/refresh/`, body);
 
         if (req.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-
+          logout();
           return;
         }
 
@@ -64,15 +69,15 @@ function Refresh() {
         const payload = await req.json();
         setWarn(JSON.stringify(payload));
       } catch (e) {
-        setWarn("There has been an unxepected error trying to verify it's you.");
+        setWarn("There has been an unxepected error trying to verify you.");
       }
     })();
-  }, [history, redirect]);
+  }, [history, logout, redirect]);
 
   return (
     <div className="page refresh">
       {!warn && (redirect
-        ? <h2>Verifying its you, this will take a couple seconds!</h2>
+        ? <h2>Verifying you, this will take a couple seconds!</h2>
         : <h2>Seems like you stumbled here by accident...</h2>
       )}
       {warn && <h2>{warn}</h2>}
