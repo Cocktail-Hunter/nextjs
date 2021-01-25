@@ -4,20 +4,20 @@ import { InventoryContext, InventoryContextProps } from "../../../Contexts/Inven
 import { ESector } from "../../../interfaces";
 
 const ShowPrivateOnly: FC = () => {
-  const {sector, setSector} = useContext(InventoryContext) as InventoryContextProps;
+  const {ingredientSector, setIngredientSector} = useContext(InventoryContext) as InventoryContextProps;
 
   const handleSector = useCallback(() => {
     const selectedSector: ESector = (
-      sector === ESector.PUBLIC ? ESector.PRIVATE : ESector.PUBLIC
+      ingredientSector === ESector.PUBLIC ? ESector.PRIVATE : ESector.PUBLIC
     );
 
-    setSector(selectedSector);
-  }, [sector, setSector]);
+    setIngredientSector(selectedSector);
+  }, [ingredientSector, setIngredientSector]);
 
   return (
     <div className="showPrivateOnly">
       <div
-        className={`checkbox checked-${sector === ESector.PRIVATE}`}
+        className={`checkbox checked-${ingredientSector === ESector.PRIVATE}`}
         onClick={handleSector}
       >
         <Check/>

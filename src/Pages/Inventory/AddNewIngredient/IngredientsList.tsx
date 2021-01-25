@@ -13,7 +13,7 @@ interface Props {
 const IngredientsList: FC<Props> = (
   {setWarn, selectedID, setSelectedID, setSelected}
 ) => {
-  const {inventory, ingredientsList, setIngredientsList, sector} = useContext(InventoryContext) as InventoryContextProps;
+  const {inventory, ingredientsList, setIngredientsList, ingredientSector} = useContext(InventoryContext) as InventoryContextProps;
 
   const history = useHistory();
 
@@ -28,7 +28,7 @@ const IngredientsList: FC<Props> = (
       };
 
       try {
-        const req = await fetch(`${process.env.REACT_APP_API}/v1/ingredients/?state=approved&public=${sector}`, body);
+        const req = await fetch(`${process.env.REACT_APP_API}/v1/ingredients/?state=approved&public=${ingredientSector}`, body);
 
         if (req.status === 401) {
           const { pathname, search } = history.location;
@@ -57,7 +57,7 @@ const IngredientsList: FC<Props> = (
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     })();
-  }, [history, inventory, sector, setIngredientsList, setWarn]);
+  }, [history, ingredientSector, inventory, setIngredientsList, setWarn]);
 
   const select = useCallback((ingredient: IIngredient) => {
     setSelected(ingredient.name);
