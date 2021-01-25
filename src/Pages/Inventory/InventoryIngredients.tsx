@@ -1,20 +1,14 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IIngredient, IInventoryPayload } from "../../interfaces";
+import { IInventoryPayload } from "../../interfaces";
 import InventoryIngredient from "./InventoryIngredient";
+import { InventoryContext, InventoryContextProps } from "../../Contexts/Inventory";
 
 import "./Index.scss";
 
-interface Props {
-  ingredientsList: Array<IIngredient>,
-  setIngredientsList: React.Dispatch<React.SetStateAction<IIngredient[]>>,
-  inventory: IIngredient[],
-  setInventory: React.Dispatch<React.SetStateAction<IIngredient[]>>,
-};
+const InventoryIngredients: FC = () => {
+  const {inventory, ingredientsList, setIngredientsList, setInventory} = useContext(InventoryContext) as InventoryContextProps;
 
-const InventoryIngredients: FC<Props> = (
-  { ingredientsList, setIngredientsList, inventory, setInventory }
-) => {
   const history = useHistory();
 
   const [warnIngredients, setWarnIngredients] = useState("");
