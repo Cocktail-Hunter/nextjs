@@ -1,23 +1,22 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IIngredient, IInventoryPayload } from "../../interfaces";
+import { InventoryContext, InventoryContextProps } from "../../../Contexts/Inventory";
+import { IInventoryPayload } from "../../../interfaces";
 
 interface Props {
-  dropdown: React.MutableRefObject<HTMLSelectElement | null>,
-  setInventory: React.Dispatch<React.SetStateAction<IIngredient[]>>
+  clear: () => void,
+  selectedID: number | null
 };
 
-const AddIngredient: FC<Props> = ({dropdown, setInventory}) => {
+const AddIngredient: FC<Props> = ({selectedID, clear}) => {
+  const {setInventory} = useContext(InventoryContext) as InventoryContextProps;
+
   const history = useHistory();
 
   const [ warn, setWarn ] = useState("");
 
   const addToInventory = useCallback(() => {
-    if (!dropdown.current) return;
-
-    const id = parseInt(dropdown.current.value);
-
-    if (isNaN(id)) return;
+    if (!selectedID || isNaN(selectedID)) return;
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -28,7 +27,9 @@ const AddIngredient: FC<Props> = ({dropdown, setInventory}) => {
           "Authorization": `Bearer ${accessToken}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({id})
+        body: JSON.stringify({
+          id: selectedID
+        })
       };
 
       try {
@@ -44,11 +45,7 @@ const AddIngredient: FC<Props> = ({dropdown, setInventory}) => {
           const payload = await req.json() as IInventoryPayload;
 
           setInventory(payload.inventory);
-
-          if (dropdown.current) {
-            dropdown.current.value = "";
-          }
-
+          clear();
           return;
         }
 
@@ -58,11 +55,11 @@ const AddIngredient: FC<Props> = ({dropdown, setInventory}) => {
         setWarn(`Internal error: ${JSON.stringify(e)}`);
       }
     })();
-  }, [dropdown, history, setInventory]);
+  }, [clear, history, selectedID, setInventory]);
 
   return (
     <>
-      <button onClick={addToInventory}>Add to inventory</button>
+      <button className={`disabled-${!selectedID}`} onClick={addToInventory}>Add to inventory</button>
       {warn && <p>{warn}</p>}
     </>
   );
