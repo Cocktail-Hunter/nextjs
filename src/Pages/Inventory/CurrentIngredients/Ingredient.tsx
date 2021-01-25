@@ -1,20 +1,21 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { IIngredient, IInventoryPayload } from "../../interfaces";
+import Delete from "../../../assets/Icons/Trash";
+import { InventoryContext, InventoryContextProps } from "../../../Contexts/Inventory";
+import { IIngredient, IInventoryPayload } from "../../../interfaces";
 
 interface Props {
   data: IIngredient,
-  ingredientsList: IIngredient[],
-  setIngredientsList: React.Dispatch<React.SetStateAction<IIngredient[]>>,
-  setInventory: React.Dispatch<React.SetStateAction<IIngredient[]>>
+  setWarn: React.Dispatch<React.SetStateAction<string>>,
+  editMode: boolean
 };
 
 const InventoryIngredient: FC<Props> = (
-  {setInventory, ingredientsList, setIngredientsList, data}
+  {data, setWarn, editMode}
 ) => {
-  const history = useHistory();
+  const {ingredientsList, setIngredientsList, setInventory} = useContext(InventoryContext) as InventoryContextProps;
 
-  const [warn, setWarn] = useState("");
+  const history = useHistory();
 
   const removeIngredient = useCallback(async (id: number) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -57,13 +58,16 @@ const InventoryIngredient: FC<Props> = (
     } catch (e) {
       setWarn(`Internal error: ${JSON.stringify(e)}`);
     }
-  }, [history, ingredientsList, setIngredientsList, setInventory]);
+  }, [history, ingredientsList, setIngredientsList, setInventory, setWarn]);
 
   return (
     <div className="ingredient">
-      {/* <button onClick={() => removeIngredient(data.id)}>Remove</button> */}
       {data.name}
-      {warn && <p>{warn}</p>}
+      {editMode && (
+        <div className="delete" onClick={() => removeIngredient(data.id)}>
+          <Delete/>
+        </div>
+      )}
     </div>
   );
 }
