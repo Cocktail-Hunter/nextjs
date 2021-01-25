@@ -1,0 +1,151 @@
+.page.inventory {
+  display: grid;
+  gap: 2em;
+
+  h1 {
+    margin-bottom: 1em;
+  }
+
+  h4 {
+    font-family: "Lato Black";
+  }
+
+  .showPrivateOnly {
+    margin: 1em 0;
+    display: grid;
+    gap: .5em;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+
+    .checkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 25px;
+      width: 25px;
+      border: solid 2px #3F378A;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &.checked-true {
+        background: #3F378A;
+
+        svg {
+          opacity: 1;
+        }
+      }
+
+      svg {
+        opacity: 0;
+        width: .7em;
+        transition: opacity 200ms ease-in-out;
+      }
+    }
+  }
+
+  button {
+    margin-top: 1em;
+    background: #F29BAB;
+    color: #181437;
+    padding: .8em 1em;
+    border-radius: 15px;
+    font-family: "Lato Black";
+  }
+
+  .inventoryIngredients {
+    h3 {
+      margin: 1em 0;
+      font-family: "Lato Black";
+    }
+
+    .inventoryList {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em 5em;
+    }
+  }
+
+  .filter {
+    margin: 1em 0;
+    display: grid;
+    gap: .5em;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+
+    .checkbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 25px;
+      width: 25px;
+      border: solid 2px #3F378A;
+      border-radius: 15px;
+      cursor: pointer;
+
+      &.checked-true {
+        background: #3F378A;
+
+        svg {
+          opacity: 1;
+        }
+      }
+
+      svg {
+        opacity: 0;
+        width: .7em;
+        transition: opacity 200ms ease-in-out;
+      }
+    }
+  }
+
+  .flexibility {
+    margin: 1em 0;
+    display: inline-flex;
+    border-radius: 15px;
+    border: solid 2px #3F378A;
+    overflow: hidden;
+
+    p {
+      padding: .5em;
+      cursor: pointer;
+      transition: background 100ms ease-in-out;
+
+      &.active {
+        background: #3F378A;
+      }
+    }
+  }
+
+  .cocktailList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 140px);
+
+    .cocktail {
+      padding: 10px 0;
+      text-align: center;
+      background: #1F1B41;
+      border-radius: 15px;
+
+      img {
+        border-radius: inherit;
+        width: 120px;
+        margin-bottom: .5em;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .page.inventory {
+    // gap: 5em;
+    // grid-template-columns: auto auto 1fr;
+
+    // .separator {
+    //   height: 100%;
+    //   width: 1px;
+    //   background: #2D294E;
+    //   border-radius: 50%;
+    //   justify-self: center;
+    // }
+  }
+}
