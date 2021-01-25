@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ESector, ICocktail, IIngredient } from "../../interfaces";
 import Cocktails from "./Cocktails/Index";
 import AddNewIngredient from "./AddNewIngredient/Index";
-import InventoryIngredients from "./InventoryIngredients";
+import CurrentIngredients from "./CurrentIngredients/Index";
 import { InventoryContext } from "../../Contexts/Inventory";
 
 import "./Index.scss";
@@ -28,9 +28,8 @@ function Inventory() {
         <section className="inventorySection">
           <h1>You have <span className="highlight">{inventory.length}</span> ingredients</h1>
           <AddNewIngredient/>
-          <InventoryIngredients/>
+          <CurrentIngredients/>
         </section>
-        {/* <div className="separator"/> */}
         <section>
           <h1>Cocktails you can make</h1>
           <Cocktails/>
