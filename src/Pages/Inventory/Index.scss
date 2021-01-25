@@ -52,16 +52,66 @@
     font-family: "Lato Black";
   }
 
-  .inventoryIngredients {
+  .currentIngredients {
     h3 {
       margin: 1em 0;
       font-family: "Lato Black";
     }
 
-    .inventoryList {
+    .heading {
+      display: grid;
+      gap: 1em;
+      align-items: center;
+      grid-template-columns: auto auto 1fr;
+    }
+
+    .editModeToggle {
+      padding: .2em .5em;
+      border-radius: 15px;
+      display: inline-grid;
+      gap: .2em;
+      align-items: center;
+      grid-template-columns: auto auto;
+      background: #2d294e;
+      cursor: pointer;
+
+      &:hover {
+        background: #3e3a5f;
+      }
+
+      svg {
+        width: 1em;
+      }
+    }
+
+    .ingredientList {
       display: inline-grid;
       grid-template-columns: 1fr 1fr;
       gap: 1em 5em;
+
+      .ingredient {
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1em;
+
+        .delete {
+          min-height: 30px;
+          min-width: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #722f37;
+          border-radius: 5px;
+          cursor: pointer;
+          animation: appear 200ms ease-in-out;
+
+          svg {
+            width: 15px;
+          }
+        }
+      }
     }
   }
 
@@ -137,15 +187,7 @@
 
 @media only screen and (min-width: 1200px) {
   .page.inventory {
-    // gap: 5em;
-    // grid-template-columns: auto auto 1fr;
-
-    // .separator {
-    //   height: 100%;
-    //   width: 1px;
-    //   background: #2D294E;
-    //   border-radius: 50%;
-    //   justify-self: center;
-    // }
+    gap: 10em;
+    grid-template-columns: auto auto 1fr;
   }
 }
