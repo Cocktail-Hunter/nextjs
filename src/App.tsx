@@ -1,10 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import UnAuthorized from "./Routes/UnAuthorized";
 import Private from "./Routes/Private";
@@ -53,7 +48,7 @@ const App = () => {
 
   return (
     <div className="App" ref={appRef}>
-      <Router>
+      <BrowserRouter>
         <AuthContext.Provider value={{authed, setAuthed}}>
           <Header setShow={setShowSidebar}/>
           <Nav show={showSidebar} setShow={setShowSidebar}/>
@@ -90,7 +85,7 @@ const App = () => {
             </UnAuthorized>
           </Switch>
         </AuthContext.Provider>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 };
