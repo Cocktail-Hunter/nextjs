@@ -16,6 +16,7 @@ import Refresh from "./Pages/Refresh";
 import Nav from "./Components/Nav";
 import Header from "./Components/Header";
 import About from "./Pages/About";
+import TermsOfService from "./Pages/TermsOfService";
 
 import {AuthContext} from "./Contexts/Auth";
 
@@ -67,6 +68,9 @@ const App = () => {
             </Route>
             <Route path="/policy">
               <PrivacyPolicy/>
+            </Route>
+            <Route path="/terms-of-service">
+              <TermsOfService/>
             </Route>
             <Route path="/about">
               <About/>
