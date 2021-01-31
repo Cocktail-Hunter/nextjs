@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 
-import "./Header.scss";
-
 import Burger from "../assets/Icons/Burger";
 import Logo from "../assets/Logo";
+
+import "./Header.scss";
 
 interface Props {
   setShow: React.Dispatch<React.SetStateAction<boolean>>
