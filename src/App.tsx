@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {AuthContext} from "./Contexts/Auth";
 
 import UnAuthorized from "./Routes/UnAuthorized";
 import Private from "./Routes/Private";
@@ -17,8 +18,6 @@ import Nav from "./Components/Nav";
 import Header from "./Components/Header";
 import About from "./Pages/About";
 import TermsOfService from "./Pages/TermsOfService";
-
-import {AuthContext} from "./Contexts/Auth";
 
 import "./App.scss";
 
