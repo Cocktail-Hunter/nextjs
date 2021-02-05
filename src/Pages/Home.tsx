@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 
 import "./Home.scss";
 
@@ -28,6 +29,9 @@ const Home: FC = () => (
         results if they have your ingredients and that it matches their flexibility!
       </p>
     </section>
+    <Link to="/register">
+      <button>Create an account</button>
+    </Link>
   </div>
 );
 
