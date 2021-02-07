@@ -69,7 +69,7 @@ const App = () => {
             <Route path="/tos">
               <TOS/>
             </Route>
-            <Route path="/policy">
+            <Route path="/privacy-policy">
               <PrivacyPolicy/>
             </Route>
             <Route path="/terms-of-service">
